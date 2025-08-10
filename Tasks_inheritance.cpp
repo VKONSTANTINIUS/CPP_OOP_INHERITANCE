@@ -13,6 +13,7 @@ using namespace std;
 //Застосувати виклик конструктора базового класу, 
 //а також для виклику 1 - 2 інших методів(наприклад, Print).
 
+// --- Базовий клас: Student ---
 class Student {
 
 private:
@@ -23,10 +24,11 @@ private:
     string group;
 
 public:
-
-    Student(): Student("Тарас", "Шевченко", "Розробка ПЗ", "СПР411"){}
+    // Конструктор за замовчуванням
+    Student(): Student("Тарас", "Шевченко", "Розробка ПЗ", "СПР411"){} 
     
-    Student(
+    // Параметризований конструктор
+    Student(                                                           
         string name, 
         string surname, 
         string faculty, 
@@ -39,17 +41,19 @@ public:
 
     }
 
+    // --- Сетери ---
     void setName    (string name)    { this->name = name; }
     void setSurname (string surname) { this->surname = surname; }
     void setFaculty (string faculty) { this->faculty = faculty; }
     void setGroup   (string group)   { this->group = group; }
 
+    // --- Гетери ---
     string getName()    const { return name; }
     string getSurname() const { return surname; }
     string getFaculty() const { return faculty; }
     string getGroup()   const { return group; }
 
-   
+   // Виведення інформації
     void Print () const {
         cout << "Ім'я, Прізвище - " << getName() << " " << getSurname() << endl;
         cout << "Факультет      - " << getFaculty() << endl;
@@ -58,6 +62,7 @@ public:
 
 };
 
+// --- Похідний клас: Aspirant ---
 class Aspirant : public Student {
 
 private:
@@ -66,20 +71,25 @@ private:
 
 public:
 
+    // Конструктор за замовчуванням
     Aspirant() { setScience_work("Computer vision in defence"); }
 
+    // Параметризований конструктор
     Aspirant(string name, string surname, string faculty, string group, string science_work ): 
         Student(name, surname, faculty, group) { 
 
         setScience_work(science_work);
     }
 
+    // --- Сетер ---
     void setScience_work(string science_work) { this->science_work = science_work; }
 
+    // --- Гетери ---
     string getScience_work() const { return science_work; }
 
+    // Виведення інформації
     void Print() const {
-        Student::Print();
+        Student::Print(); // Виклик методу базового класу
         cout << "Тема кандидатської роботи: " << getScience_work() << endl;
     }
 };
@@ -145,17 +155,18 @@ int main()
 {
     SetConsoleOutputCP(1251);
 
-    Student Sevchenko;
-    Sevchenko.Print();
+    // Тест виконання І завдання 
+    Student Sevchenko;             //Створення об'єкта базового класу
+    Sevchenko.Print();             //Виведення інформації 
     cout << "\n";
 
-    Aspirant Franko("Іван", 
+    Aspirant Franko("Іван",        //Створення об'єкта похідного класу 
                     "Франко", 
                     "Гуманітарні науки", 
                     "Гр-2025", 
                     "Самовизнання штучного інтелекту");
 
-    Franko.Print();
+    Franko.Print();                //Виведення інформації 
     cout << "\n";
 }
 
